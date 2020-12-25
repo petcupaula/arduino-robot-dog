@@ -38,3 +38,5 @@ Customize your dog!
 * Add additional sensors, for examples a gas sensor, a temperature sensor or a distance sensor. 
 * Replace the micro-USB power supply with a Lithium polymer battery (see the documentation for the Adafruit Feather Huzzah board) which will make the dog a bit less heavy. 
 * The Adafruit Feather Huzzah board has Wi-Fi on board! So you could control remotely your dog, as well as log the data from its sensors. For example, you could make the dog bark whenever you want (or when the others the least expect it), or you can track how much it has been petted over time. You can have a look at the Adafruit.io platform if you need inspiration for how to store sensor data. 
+* The sound sensor in the dog has both an analog and digital output. That means that if using the analog input you would get more information about the sound around. It first needs to be soldered into the board (note that the IC 4051 has possibility for 8 input channels but only 4 are used at the moment). One potential application is to make the tail move in rythm with music. 
+* Add more servos to make other parts of the dog move. 
