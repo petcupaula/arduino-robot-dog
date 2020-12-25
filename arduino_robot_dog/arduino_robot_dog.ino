@@ -1,25 +1,56 @@
+/*
+ * Robot dog using an Adafruit Feather Huzzah ESP8266 board and a number of 
+ * sensors and actuators. 
+ * 
+ * Logic: 
+ * * When it is being petted, the tail will move and it will bark. The dog is happy. 
+ * * When it is complete silence for a duration of time, the dog will start making
+ * high-pitch sounds requesting attention. The dog is sad.
+ * 
+ */
+
+
 #include <Servo.h> 
 
 #define SERVO_PIN 2
-#define SPEAKER_PIN 13
-#define SOUND_PIN A0
+#define SPEAKER_PIN 14
+#define ANALOG_PIN A0
+//#define SOUND_PIN A0
 
 Servo servo;
 
-const int sampleWindow = 6; // Sample window width in mS (50 mS = 20Hz)
-unsigned int sample;
+//const int sampleWindow = 6; // Sample window width in mS (50 mS = 20Hz)
+//unsigned int sample;
+
+//int touch;
+//bool prevTouchState = false;
+//const int touchThreshold = 400;
+
+// MUX - initialise vars used for selection of pins
+int r0 = 0;      //value of select pin at the 4051 (s0)
+int r1 = 0;      //value of select pin at the 4051 (s1)
+int r2 = 0;      //value of select pin at the 4051 (s2)
+int count = 0;   //which y pin we are selecting
+
 
 void setup() {
   servo.attach(SERVO_PIN);
   pinMode(SPEAKER_PIN,OUTPUT);
   digitalWrite(SPEAKER_PIN,LOW);
   
+  // MUX pin selection:
+  pinMode(12, OUTPUT);    // s0
+  pinMode(13, OUTPUT);    // s1
+  pinMode(15, OUTPUT);    // s2
+  
   Serial.begin(57600);
 }
 
 void loop() {
-  //sweep();
-  //delay(2000); 
+  sweep();
+  delay(5000); 
+
+  readFSRs();
 
 //  chirp(); 
 //  delay(2000);  
@@ -28,10 +59,10 @@ void loop() {
 //  meow2();
 //  mew();
 //  delay(2000);    
-//  ruff();
-//  delay(2000);  
-//  arf();
-//  delay(2000);
+  //ruff();
+  //delay(2000);  
+  //arf();
+  //delay(2000);
 
 //  rickroll(); 
 //  delay(2000);
@@ -41,8 +72,28 @@ void loop() {
   //Serial.println(sound_level);
   //delay(100);
 
-  double volts = readMic();
-  Serial.println(volts);
+  //double volts = readMic();
+  //Serial.println(volts);
+
+ /* Logic: 
+ * * When it is being petted, the tail will move and it will bark. The dog is happy. 
+ * * When it is complete silence for a duration of time, the dog will start making
+ * high-pitch sounds requesting attention. The dog is sad.
+ */
+ 
+  /*touch = analogRead(TOUCH_PIN); // could also be digital?
+  
+  if (touch > touchThreshold) {
+    // the dog is being petted, so move tail and bark 
+    sweep();
+    ruff();
+    sweep();
+  }
+  else {
+    
+  }*/
+
+  
 
 }
 
@@ -176,7 +227,7 @@ void rickroll(){
 
 // SOUND
 
-double readMic() {
+/*double readMic() {
      unsigned long startMillis= millis();  // Start of sample window
      unsigned int peakToPeak = 0;   // peak-to-peak level
   
@@ -203,4 +254,48 @@ double readMic() {
      Serial.println(volts);
      return volts;
 
+}*/
+
+
+
+/************************* MUX ***********************************************/
+void readFSRs(){ 
+  
+  for (count=0; count<=3; count++) {
+
+    if (count == 0 || count == 1 || count == 2 || count == 3) {
+  
+      // select the bit  
+      r0 = bitRead(count,0);    // use this with arduino 0013 (and newer versions)     
+      r1 = bitRead(count,1);    // use this with arduino 0013 (and newer versions)     
+      r2 = bitRead(count,2);    // use this with arduino 0013 (and newer versions)     
+   
+      digitalWrite(12, r0);
+      digitalWrite(13, r1);
+      digitalWrite(15, r2);
+  
+      //Either read or write the multiplexed pin here
+      // read and transform
+      int reading = analogRead(A0);
+      Serial.print("Reading (count=");
+      Serial.print(count);
+      Serial.print("): ");
+      Serial.print(reading);
+        
+      if (reading < 10) {
+        Serial.println(" - No pressure");
+      } else if (reading < 200) {
+        Serial.println(" - Light touch");
+      } else if (reading < 500) {
+        Serial.println(" - Light squeeze");
+      } else if (reading < 800) {
+        Serial.println(" - Medium squeeze");
+      } else {
+        Serial.println(" - Big squeeze");
+      }
+     
+    }
+      
+      delay(1000); 
+  }
 }
