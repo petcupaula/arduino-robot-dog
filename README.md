@@ -1,6 +1,13 @@
 # arduino-robot-dog
 
+A robot dog created from a simple plush toy. 
+
 ## Components
+
+### Materials
+
+* Plush dog toy (https://shop.dk.flyingtiger.com/products/krammeven-hund-170192301?variant=31504011952181)
+* Foam - in order to better distribute the pressure over the FSRs
 
 ### Hardware
 
@@ -15,10 +22,9 @@
 
 * Arduino IDE, where you need to install the required libraries for Adafruit Feather Huzzah ESP8266 (https://learn.adafruit.com/adafruit-feather-huzzah-esp8266/using-arduino-ide)
 
-### Other
+### Other projects
 
-* Plush dog toy (https://shop.dk.flyingtiger.com/products/krammeven-hund-170192301?variant=31504011952181)
-* Foam - in order to better distribute the pressure over the FSRs
+* Adafruit Trinket-Modded Stuffed Animal (https://learn.adafruit.com/adafruit-trinket-modded-stuffed-animal?view=all) - inspiration for the different sounds that can be made
 
 ## Circuit
 
@@ -34,7 +40,7 @@
 Customize your dog!
 
 * There are 4 force sensors in the dog, and you can read the value of each of them individually. Currently, the actions for when the dog is being petted (i.e. there is some force applied on the sensors) is the same. An idea for further development is to apply customized actions depending on *where* the dog is being petted. 
-* Customize the sounds that the dog makes. 
+* Customize the sounds that the dog makes.
 * Add additional sensors, for examples a gas sensor, a temperature sensor or a distance sensor. 
 * Replace the micro-USB power supply with a Lithium polymer battery (see the documentation for the Adafruit Feather Huzzah board) which will make the dog a bit less heavy. 
 * The Adafruit Feather Huzzah board has Wi-Fi on board! So you could control remotely your dog, as well as log the data from its sensors. For example, you could make the dog bark whenever you want (or when the others the least expect it), or you can track how much it has been petted over time. You can have a look at the Adafruit.io platform if you need inspiration for how to store sensor data. 
