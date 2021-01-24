@@ -1,12 +1,6 @@
 /*
  * Robot dog using an Adafruit Feather Huzzah ESP8266 board and a number of 
  * sensors and actuators. 
- * 
- * Logic: 
- * * When it is being petted, the tail will move and it will bark. The dog is happy. 
- * * When it is complete silence for a duration of time, the dog will start making
- * high-pitch sounds requesting attention. The dog is sad.
- * 
  */
 
 
@@ -15,16 +9,8 @@
 #define SERVO_PIN 2
 #define SPEAKER_PIN 14
 #define ANALOG_PIN A0
-//#define SOUND_PIN A0
 
 Servo servo;
-
-//const int sampleWindow = 6; // Sample window width in mS (50 mS = 20Hz)
-//unsigned int sample;
-
-//int touch;
-//bool prevTouchState = false;
-//const int touchThreshold = 400;
 
 // MUX - initialise vars used for selection of pins
 int r0 = 0;      //value of select pin at the 4051 (s0)
@@ -34,7 +20,9 @@ int count = 0;   //which y pin we are selecting
 
 
 void setup() {
+  
   servo.attach(SERVO_PIN);
+  
   pinMode(SPEAKER_PIN,OUTPUT);
   digitalWrite(SPEAKER_PIN,LOW);
   
@@ -47,58 +35,39 @@ void setup() {
 }
 
 void loop() {
+
+  // sweep tail every 5 seconds
   sweep();
   delay(5000); 
 
-  readFSRs();
+  // TO-DO: read the pressure (FSR) sensors
+  // TO-DO: based on pressure do specific things
+  // readFSRs();
 
-//  chirp(); 
-//  delay(2000);  
-//  meow();
-//  delay(2000);  
-//  meow2();
-//  mew();
-//  delay(2000);    
-  //ruff();
-  //delay(2000);  
-  //arf();
-  //delay(2000);
+  // TO-DO: make some sounds
+  // chirp(); 
+  // delay(2000);  
+  // meow();
+  // delay(2000);  
+  // meow2();
+  // mew();
+  // delay(2000);    
+  // ruff();
+  // delay(2000);  
+  // arf();
+  // delay(2000);
+  // rickroll(); 
+  // delay(2000);
 
-//  rickroll(); 
-//  delay(2000);
-
-
-  //int sound_level = analogRead(SOUND_PIN);
-  //Serial.println(sound_level);
-  //delay(100);
-
-  //double volts = readMic();
-  //Serial.println(volts);
-
- /* Logic: 
- * * When it is being petted, the tail will move and it will bark. The dog is happy. 
- * * When it is complete silence for a duration of time, the dog will start making
- * high-pitch sounds requesting attention. The dog is sad.
- */
- 
-  /*touch = analogRead(TOUCH_PIN); // could also be digital?
-  
-  if (touch > touchThreshold) {
-    // the dog is being petted, so move tail and bark 
-    sweep();
-    ruff();
-    sweep();
-  }
-  else {
-    
-  }*/
-
-  
-
+  // TO-DO: read sound level
+  // TO-DO: based on sound level (or sequence of sounds, such as clapping hands) do specific things
+  // double volts = readMic();
+  // Serial.println(volts);
 }
 
+
 /*
- * SERVO
+ * SERVO - move tail
  */
 
 void sweep()
@@ -118,7 +87,7 @@ void sweep()
 
 
 /*
- * SPEAKER
+ * BUZZER - make noises 
  */
 
 void chirp() {  // Bird chirp
@@ -183,39 +152,40 @@ void playTone(uint16_t tone1, uint16_t duration) {
   }     
 }
 
-int c = 262;
-int d = 294;
-int e = 330;
-int f = 349;
-int g = 392;
-int a = 440;
-int b = 494;
-int bf = 466;
-int C = 523;
-int frequency[145] = {
-  f, g, c, g, a, C, bf, a, f, g, c, c, c, d, f, f, f, g, c, g, a, C, bf, a, f, g, c, e, f, f, 
-  f, f, f, //33
-  d, e, f, f, g, e, d, c, d, d, e, f, d, c, //47
-  C, C, g, d, d, e, f, d, f, g, e, d, c, //64
-  d, d, e, f, d, c, g, g, g, a, g, f, g, a, f, //80
-  g, g, g, a, g, c, d, e, f, d, g, a, g,
-  c, d, f, d, a, a, g, c, d, f, d, g, g, f, e, d, c, d, f, d, f, g, e, d, c, c, g, f,
-  c, d, f, d, a, a, g, c, d, f, d, C, e, f, e, d, c, d, f, d, f, g, e, d, c, c, g, f
-  };
-int duration[145] = {
-  620, 620, 410, 620, 620, 100, 100, 200, 620, 620, 1440, 100, 100, 100, 200, 100,
-  620, 620, 410, 620, 620, 100, 100, 200, 620, 620, 410, 200, 200, 830, 100, 200, 510,
-  200, 200, 200, 200, 200, 300, 100, 1660, 200, 200, 200, 200, 410, 200,
-  410, 200, 1240, 200, 200, 200, 200, 200, 200, 200, 410, 200, 1240,
-  200, 200, 200, 200, 200, 410, 200, 200, 200, 200, 830, 1030, 200, 200, 200,
-  200, 200, 200, 200, 410, 1240, 200, 200, 200, 410, 200, 200, 620,
-  120, 120, 120, 120, 360, 360, 720, 120, 120, 120, 120, 360, 360, 480, 120, 240, 120, 120, 120, 120,
-  480, 240, 360, 120, 480, 240, 480, 960,
-  120, 120, 120, 120, 360, 360, 720, 120, 120, 120, 120, 360, 360, 480, 120, 240, 120, 120, 120, 120,
-  480, 240, 360, 120, 480, 240, 480, 960
-  };
 
 void rickroll(){ 
+  int c = 262;
+  int d = 294;
+  int e = 330;
+  int f = 349;
+  int g = 392;
+  int a = 440;
+  int b = 494;
+  int bf = 466;
+  int C = 523;
+  int frequency[145] = {
+    f, g, c, g, a, C, bf, a, f, g, c, c, c, d, f, f, f, g, c, g, a, C, bf, a, f, g, c, e, f, f, 
+    f, f, f, //33
+    d, e, f, f, g, e, d, c, d, d, e, f, d, c, //47
+    C, C, g, d, d, e, f, d, f, g, e, d, c, //64
+    d, d, e, f, d, c, g, g, g, a, g, f, g, a, f, //80
+    g, g, g, a, g, c, d, e, f, d, g, a, g,
+    c, d, f, d, a, a, g, c, d, f, d, g, g, f, e, d, c, d, f, d, f, g, e, d, c, c, g, f,
+    c, d, f, d, a, a, g, c, d, f, d, C, e, f, e, d, c, d, f, d, f, g, e, d, c, c, g, f
+    };
+  int duration[145] = {
+    620, 620, 410, 620, 620, 100, 100, 200, 620, 620, 1440, 100, 100, 100, 200, 100,
+    620, 620, 410, 620, 620, 100, 100, 200, 620, 620, 410, 200, 200, 830, 100, 200, 510,
+    200, 200, 200, 200, 200, 300, 100, 1660, 200, 200, 200, 200, 410, 200,
+    410, 200, 1240, 200, 200, 200, 200, 200, 200, 200, 410, 200, 1240,
+    200, 200, 200, 200, 200, 410, 200, 200, 200, 200, 830, 1030, 200, 200, 200,
+    200, 200, 200, 200, 410, 1240, 200, 200, 200, 410, 200, 200, 620,
+    120, 120, 120, 120, 360, 360, 720, 120, 120, 120, 120, 360, 360, 480, 120, 240, 120, 120, 120, 120,
+    480, 240, 360, 120, 480, 240, 480, 960,
+    120, 120, 120, 120, 360, 360, 720, 120, 120, 120, 120, 360, 360, 480, 120, 240, 120, 120, 120, 120,
+    480, 240, 360, 120, 480, 240, 480, 960
+    };
+
   for(int i=0; i<145; i++){ //run loop for all values of i 0 to __ 
     tone(SPEAKER_PIN, frequency[i]); //play tones in order from the frequency array
     delay(duration[i]);   //play all above tones for the corresponding duration in the duration array
@@ -224,19 +194,27 @@ void rickroll(){
   }
 }
 
+// some other songs: https://github.com/robsoncouto/arduino-songs
 
-// SOUND
 
-/*double readMic() {
+/*
+ * SOUND SENSOR - detect sound level
+ */
+
+double readMic() {
+     const int sampleWindow = 6; // Sample window width in mS (50 mS = 20Hz)
+     unsigned int sample;
+
      unsigned long startMillis= millis();  // Start of sample window
      unsigned int peakToPeak = 0;   // peak-to-peak level
   
      unsigned int signalMax = 0;
      unsigned int signalMin = 1024;
+     
      // collect data for sampleWindow mS
      while (millis() - startMillis < sampleWindow)
      {
-        sample = analogRead(SOUND_PIN);
+        sample = analogRead(ANALOG_PIN);
         if (sample < 1024)  // toss out spurious readings
         {
            if (sample > signalMax)
@@ -251,14 +229,16 @@ void rickroll(){
      }
      peakToPeak = signalMax - signalMin;  // max - min = peak-peak amplitude
      double volts = (peakToPeak * 5.0) / 1024;  // convert to volts
+     
      Serial.println(volts);
      return volts;
-
-}*/
-
+}
 
 
-/************************* MUX ***********************************************/
+/*
+ * FORCE SENSORS - read pressure on the force sensors
+ */
+
 void readFSRs(){ 
   
   for (count=0; count<=3; count++) {
