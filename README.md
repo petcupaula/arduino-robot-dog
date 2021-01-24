@@ -15,8 +15,9 @@ A robot dog created from a simple plush toy.
 * Micro Servo MG90S (https://www.adafruit.com/product/169)
 * Grove Buzzer (Piezo speaker) (https://wiki.seeedstudio.com/Grove-Buzzer/)
 * Sound Detector (https://www.aliexpress.com/item/32569653599.html)
-* FSR (Force Sensitive Resistor) (https://www.adafruit.com/product/166)
+* 4 x FSR (Force Sensitive Resistor) (https://www.adafruit.com/product/166) + 4 x 12k ohm resistors and 4 x 22k ohm resistors
 * IC 4051 (8-channel Analog Multiplexer/Demultiplexer) (https://playground.arduino.cc/Learning/4051/, datasheet: https://www.ti.com/lit/ds/symlink/cd4051b.pdf)
+* Wires
 
 ### Software
 
@@ -29,6 +30,34 @@ A robot dog created from a simple plush toy.
 ## Circuit
 
 ![Schematics](robot_dog_schematics_bb.png?raw=true "Schematics")
+
+## Build process
+
+This is a standard cute plush toy, ready to be enhanced with sensors and actuators:
+
+<img src="pics/IMG_0336.png" width="400"> <img src="pics/IMG_0383.png" width="400">
+
+A reasonable amount of the fluffy stuffing needs to be taken out in order to make space for the electronics:
+
+<img src="pics/IMG_0384.png" width="400">
+
+The servo horn is enclosed in some soft foam and then fit into the tail:
+
+<img src="pics/IMG_0388.png" width="400"> <img src="pics/IMG_0389.png" width="400">
+
+The FSRs are added on a long strip of foam, at the end of which there's the buzzer / sound sensor:
+
+<img src="pics/IMG_0386.png" width="400"> <img src="pics/IMG_0390.png" width="400"> 
+
+Fit the FSRs foam strips inside the toy:
+
+<img src="pics/IMG_0391.png" width="400"> <img src="pics/IMG_0396.png" width="400"> 
+
+All components assembed but before covering everything, might want to do some programming/enhancements. 
+
+This is a **work-in-progress** project :)
+
+<img src="pics/IMG_0397.png" width="400">
 
 ## Current functionality
 
