@@ -61,6 +61,13 @@ This is a **work-in-progress** project :)
 
 ## Current functionality
 
+The dog wags its tail. 
+
+* The current code only moves the servo, however there are functions that you can call to do other stuff as well. 
+* Note: remember to also ensure things are connected correctly in the dog itself as well. As you enable more functionality, refer to the schematics above on how the components are to be connected. 
+
+## Ideas for basic functionality
+
 * When the dog is being petted, the tail will move and it will bark. The dog is happy. 
 * When there's complete silence for a duration of time, the dog will start making high-pitch sounds requesting attention. The dog is sad.
 
